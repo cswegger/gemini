@@ -64,15 +64,16 @@ def query():
 
         (query, gt_filter, use_header, igv_links) = _get_fields()
 
-        if use_header: use_header = True
-        if igv_links: igv_links = True
+        if use_header:
+            use_header = True
+        if igv_links:
+            igv_links = True
 
         gq = GeminiQuery.GeminiQuery(database)
         gq._set_gemini_browser(True)
         gq.run(query, gt_filter)
 
-
-        if len(query) == 0:
+        if query:
             return template('query.j2', dbfile=database)
 
         if igv_links and ('chrom' not in query.lower()
@@ -102,7 +103,7 @@ def query():
         gq = GeminiQuery.GeminiQuery(database)
         gq.run(query, gt_filter)
 
-        if len(query) == 0:
+        if query:
             return template('query.j2', dbfile=database)
 
         # dump the results to a text file.  this will be
